@@ -118,9 +118,8 @@ function deleteData(t) {
           });
           if($(t).attr("data-callback")){
             setTimeout(function () {
-              location.location.href = $(t).attr("data-callback");
+              window.location.href = $(t).attr("data-callback");
             }, 2000);
-
           }else{
             setTimeout(function () {
               location.reload();
