@@ -4,6 +4,9 @@
             <div class="pull-left">
                 <h4><strong>FORMULIR KEUANGAN</strong></h4>
             </div>
+            <div class="pull-right">
+                <button class="btn btn-default" type="button" name="button" data-callback="<?php echo base_url('trans'); ?>" data-url="<?php echo base_url('trans/delete/'.$data->id); ?>" onclick="return deleteData(this)"><i class="fa fa-trash"></i></button>
+            </div>
         </div>
         <div class="box-body">
             <table class="table table-bordered">                

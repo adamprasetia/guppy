@@ -116,10 +116,16 @@ function deleteData(t) {
               timer: 2000,
               showConfirmButton: false
           });
+          if($(t).attr("data-callback")){
+            setTimeout(function () {
+              location.location.href = $(t).attr("data-callback");
+            }, 2000);
 
-          setTimeout(function () {
-            location.reload();
-          }, 2000);
+          }else{
+            setTimeout(function () {
+              location.reload();
+            }, 2000);
+          }
         },
         error: function (xhr, textStatus, errorThrown) {
           sweetAlert("Oops...", "Terjadi Kesalahan!", "error");

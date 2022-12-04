@@ -16,8 +16,7 @@ class Trans extends MY_Controller {
 		$search = $this->input->get('search');
 		if ($search) {
 			$this->db->group_start();
-			$this->db->like('item.name', $search);
-			$this->db->or_like('item.sku', $search);
+			$this->db->like('trans.remark', $search);
 			$this->db->group_end();
 		}
 		$this->db->order_by('trans.id desc');
