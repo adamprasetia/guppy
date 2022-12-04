@@ -189,10 +189,11 @@ $(document).on('keypress', '#input_search', function (e) {
   }
 });
 
+var form_original_data = $("#form_data").serialize(); 
 $(document).on('click', '.btn_close', function () {
   var t = $(this);
   var redirect = $(t).attr('data-redirect');
-
+  if ($("#form_data").serialize() != form_original_data) {
   swal({
     title: "Kamu yakin ?",
     text: "Kamu mungkin memiliki perubahan yang belum disimpan yang akan hilang!",
@@ -204,6 +205,9 @@ $(document).on('click', '.btn_close', function () {
   }, function () {
     window.location = redirect;
   });
+  }else{
+    window.location = redirect;
+  }
 });
 
 function changeStatus(t) {
