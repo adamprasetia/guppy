@@ -8,11 +8,17 @@
     <?php endif ?>
     <div class="box-header with-border">
         <div class="form-group">
-            <a href="<?php echo base_url('trans/add') ?>" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Tambah</a>
-            <a href="<?php echo now_url() ?>" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i> Refresh</a>
+            <a href="<?php echo base_url('trans/add') ?>" class="btn btn-default"><i class="fa fa-plus"></i> Tambah</a>
+            <a href="<?php echo now_url() ?>" class="btn btn-default"><i class="fa fa-refresh"></i> Refresh</a>
         </div>
         <div class="form-group">
-            <input id="input_search" type="text" class="form-control input-sm" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
+            <div class="input-group">
+                <input id="input_search" type="text" class="form-control" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
+                <span class="input-group-btn">
+                    <a href="<?php echo base_url('trans') ?>" id="reset-search" class="btn btn-default">Reset</a>
+                </span>
+            </div>
+
         </div>
     </div>
     <div class="box-body no-padding">
