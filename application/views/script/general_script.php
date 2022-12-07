@@ -236,8 +236,13 @@ function changeStatus(t) {
     });
 };
 
-$('.datetimepicker').datepicker({
+  $('.datetimepicker').datepicker({
     dateFormat: 'dd/mm/yy',
+    changeMonth: true,
+    changeYear: true
+  });
+  $('.datetimepicker2').datepicker({
+    dateFormat: 'yy-mm-dd',
     changeMonth: true,
     changeYear: true
   });
@@ -247,5 +252,9 @@ $('.datetimepicker').datepicker({
 		thousandsSeparator: ',',
 		centsLimit: 0
 	});
+
+  $('#btn-filter').click(function(){
+    $('.filter-wrap').show();
+  });
 
 </script>

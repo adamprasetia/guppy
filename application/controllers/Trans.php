@@ -13,12 +13,23 @@ class Trans extends MY_Controller {
 	{
         $this->db->where('trans.store_id', $this->session_store);
 		$this->db->where('trans.deleted_at', null);
+		$type = $this->input->get('type');
+		if ($type) {
+			$this->db->where('type', $type);
+		}
 		$search = $this->input->get('search');
 		if ($search) {
 			$this->db->group_start();
 			$this->db->like('trans.remark', $search);
 			$this->db->group_end();
 		}
+		$from = $this->input->get('from');
+		$to = $this->input->get('to');
+		if(!empty($from) && !empty($to)){
+			$this->db->where('date >= ', $from);
+			$this->db->where('date <= ', $to);
+		}
+
 		$this->db->order_by('trans.id desc');
 	}
 	public function index()

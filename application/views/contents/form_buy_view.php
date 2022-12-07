@@ -2,11 +2,11 @@
     <form id="form_data" method="post">
         <div class="box-header with-border">
             <div class="pull-left">
-                <h4><strong>FORMULIR PENJUALAN</strong></h4>
+                <h4><strong>FORMULIR PEMBELIAN</strong></h4>
             </div>
             <?php if(!empty($data)): ?>
                 <div class="pull-right">
-                    <button class="btn btn-default" type="button" name="button" data-callback="<?php echo base_url('sell'); ?>" data-url="<?php echo base_url('sell/delete/'.$data->id); ?>" onclick="return deleteData(this)"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-default" type="button" name="button" data-callback="<?php echo base_url('buy'); ?>" data-url="<?php echo base_url('buy/delete/'.$data->id); ?>" onclick="return deleteData(this)"><i class="fa fa-trash"></i></button>
                 </div>
             <?php endif ?>
         </div>
@@ -54,12 +54,12 @@
                     <?php $total = 0;if(!empty($detail)) :?>
                         <?php foreach ($detail as $key => $value) : ?>
                             <tr>
-                                <input type="hidden" name="detail-id[]" class="sell-id" value="<?php echo $value->item_id ?>">
+                                <input type="hidden" name="detail-id[]" class="buy-id" value="<?php echo $value->item_id ?>">
                                 <td><?php echo $value->sku ?></td>
                                 <td><?php echo $value->name ?></td>
-                                <td><input type="text" name="detail-qty[]" class="input-uang sell-qty form-control" value="<?php echo number_format($value->qty) ?>"></td>
-                                <td><input type="text" name="detail-amount[]" class="input-uang sell-amount form-control" value="<?php echo number_format($value->amount) ?>"></td>
-                                <td><input type="text" name="detail-total[]" class="input-uang sell-total form-control" value="<?php echo number_format($value->qty*$value->amount) ?>"></td>
+                                <td><input type="text" name="detail-qty[]" class="input-uang buy-qty form-control" value="<?php echo number_format($value->qty) ?>"></td>
+                                <td><input type="text" name="detail-amount[]" class="input-uang buy-amount form-control" value="<?php echo number_format($value->amount) ?>"></td>
+                                <td><input type="text" name="detail-total[]" class="input-uang buy-total form-control" value="<?php echo number_format($value->qty*$value->amount) ?>"></td>
                                 <td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td>
                             </tr>                        
                         <?php $total+=$value->qty*$value->amount;endforeach ?>
@@ -68,7 +68,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="4"><strong>Total</strong></td>
-                        <td><strong><input id="sell-total-amount" readonly type="text" value="<?php echo number_format($total)?>" class="input-uang form-control"></strong></td>
+                        <td><strong><input id="buy-total-amount" readonly type="text" value="<?php echo number_format($total)?>" class="input-uang form-control"></strong></td>
                         <td></td>
                     </tr>
                 </tfoot>
@@ -76,8 +76,8 @@
             </div>
         </div>
         <div class="box-footer">
-            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('sell/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_data" data-idle="<i class='fa fa-save'></i> Simpan" data-process="Menyimpan..."><i class='fa fa-save'></i> Simpan</button>
-            <button type="button" class="btn_close btn btn-default" data-redirect="<?php echo base_url('sell/index').get_query_string() ?>"><i class='fa fa-close'></i> Kembali</button>
+            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('buy/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_data" data-idle="<i class='fa fa-save'></i> Simpan" data-process="Menyimpan..."><i class='fa fa-save'></i> Simpan</button>
+            <button type="button" class="btn_close btn btn-default" data-redirect="<?php echo base_url('buy/index').get_query_string() ?>"><i class='fa fa-close'></i> Kembali</button>
         </div>
     </form>
 </div>

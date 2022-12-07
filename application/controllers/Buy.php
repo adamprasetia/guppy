@@ -1,9 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Sell extends MY_Controller {
+class Buy extends MY_Controller {
 
 	private $limit = 15;
-	private $table = 'sell';
+	private $table = 'buy';
 
 	function __construct()
    	{
@@ -11,21 +11,21 @@ class Sell extends MY_Controller {
    	}
 	private function _filter()
 	{
-		$this->db->select('sell.*, sum(sell_d.qty*sell_d.amount) as total, item.sku as item_sku, item.name as item_name');
-		$this->db->join('sell_d', 'sell.id=sell_d.sell_id', 'left');
-		$this->db->join('item', 'item.id=sell_d.item_id', 'left');
-		$this->db->group_by('sell.id');
-        $this->db->where('sell.store_id', $this->session_store);
-		$this->db->where('sell.deleted_at', null);
+		$this->db->select('buy.*, sum(buy_d.qty*buy_d.amount) as total, item.sku as item_sku, item.name as item_name');
+		$this->db->join('buy_d', 'buy.id=buy_d.buy_id', 'left');
+		$this->db->join('item', 'item.id=buy_d.item_id', 'left');
+		$this->db->group_by('buy.id');
+        $this->db->where('buy.store_id', $this->session_store);
+		$this->db->where('buy.deleted_at', null);
 		$search = $this->input->get('search');
 		if ($search) {
 			$this->db->group_start();
 			$this->db->like('item.name', $search);
 			$this->db->or_like('item.sku', $search);
-			$this->db->or_like('sell.nomor', $search);
+			$this->db->or_like('buy.nomor', $search);
 			$this->db->group_end();
 		}
-		$this->db->order_by('sell.id desc');
+		$this->db->order_by('buy.id desc');
 		$from = $this->input->get('from');
 		$to = $this->input->get('to');
 		if(!empty($from) && !empty($to)){
@@ -44,7 +44,7 @@ class Sell extends MY_Controller {
 		$content_view['offset'] = $offset;
 		$content_view['paging'] = gen_paging($total,$this->limit);
 		$content_view['total'] 	= gen_total($total,$this->limit,$offset);
-		$data['content'] 	= $this->load->view('contents/sell_view', $content_view, TRUE);
+		$data['content'] 	= $this->load->view('contents/buy_view', $content_view, TRUE);
 
 		$this->load->view(!empty($this->input->get('popup'))?'modals/template_view':'template_view', $data);
 	}
@@ -90,9 +90,9 @@ class Sell extends MY_Controller {
 	{
 		$this->_set_rules();
 		if ($this->form_validation->run()===FALSE) {
-			$data['script'] = $this->load->view('script/sell_script', '', true);
-			$data['content'] = $this->load->view('contents/form_sell_view', [
-				'action'=>base_url('sell/add').get_query_string()
+			$data['script'] = $this->load->view('script/buy_script', '', true);
+			$data['content'] = $this->load->view('contents/form_buy_view', [
+				'action'=>base_url('buy/add').get_query_string()
 			],true);
 
 			if(!validation_errors())
@@ -111,17 +111,17 @@ class Sell extends MY_Controller {
 			$detail_qty = $this->input->post('detail-qty');
 			$detail_amount = $this->input->post('detail-amount');
 			$this->db->insert($this->table, $data);
-			$sell_id = $this->db->insert_id();
+			$buy_id = $this->db->insert_id();
 
 			for ($i=0; $i < count($detail_item); $i++) { 
-				$this->db->insert('sell_d', [
-					'sell_id'=>$sell_id,
+				$this->db->insert('buy_d', [
+					'buy_id'=>$buy_id,
 					'item_id'=>$detail_item[$i],
 					'qty'=>format_uang($detail_qty[$i]),
 					'amount'=>format_uang($detail_amount[$i]),
 				]);
 				$this->db->where('id', $detail_item[$i]);
-				$this->db->set('stock', 'stock-'.format_uang($detail_qty[$i]), false);
+				$this->db->set('stock', 'stock+'.format_uang($detail_qty[$i]), false);
 				$this->db->update('item');
 			}
 			$this->db->trans_complete();
@@ -140,12 +140,12 @@ class Sell extends MY_Controller {
 	{
 		$this->_set_rules();
 		if ($this->form_validation->run()===FALSE) {
-			$this->db->where('sell.id', $id);
+			$this->db->where('buy.id', $id);
 			$content_view['data'] = $this->db->get($this->table)->row();
-			$content_view['detail'] = $this->db->where('sell_id', $id)->join('item','item.id=sell_d.item_id','left')->get('sell_d')->result();
-			$content_view['action'] = base_url('sell/edit/'.$id).get_query_string();
-			$data['script'] = $this->load->view('script/sell_script', '', true);
-			$data['content'] = $this->load->view('contents/form_sell_view',$content_view,true);
+			$content_view['detail'] = $this->db->where('buy_id', $id)->join('item','item.id=buy_d.item_id','left')->get('buy_d')->result();
+			$content_view['action'] = base_url('buy/edit/'.$id).get_query_string();
+			$data['script'] = $this->load->view('script/buy_script', '', true);
+			$data['content'] = $this->load->view('contents/form_buy_view',$content_view,true);
 
 			if(!validation_errors())
 			{
@@ -163,27 +163,27 @@ class Sell extends MY_Controller {
 			$detail_qty = $this->input->post('detail-qty');
 			$detail_amount = $this->input->post('detail-amount');
 
-			$sell = $this->db->where('id', $id)->get('sell')->row();
+			$buy = $this->db->where('id', $id)->get('buy')->row();
 			$this->db->update($this->table, $data, ['id'=>$id]);
 			
 			// rollback stock
-			$sell = $this->db->where('sell_id', $id)->get('sell_d')->result();
-			foreach ($sell as $key => $value) {
+			$buy = $this->db->where('buy_id', $id)->get('buy_d')->result();
+			foreach ($buy as $key => $value) {
 				$this->db->where('id', $value->item_id);
-				$this->db->set('stock', 'stock+'.$value->qty, false);
+				$this->db->set('stock', 'stock-'.$value->qty, false);
 				$this->db->update('item');
 			}
-			$this->db->delete('sell_d', ['sell_id'=>$id]);
+			$this->db->delete('buy_d', ['buy_id'=>$id]);
 			if(!empty($detail_item)){
 				for ($i=0; $i < count($detail_item); $i++) { 
-					$this->db->insert('sell_d', [
-						'sell_id'=>$id,
+					$this->db->insert('buy_d', [
+						'buy_id'=>$id,
 						'item_id'=>$detail_item[$i],
 						'qty'=>format_uang($detail_qty[$i]),
 						'amount'=>format_uang($detail_amount[$i]),
 					]);
 					$this->db->where('id', $detail_item[$i]);
-					$this->db->set('stock', 'stock-'.format_uang($detail_qty[$i]), false);
+					$this->db->set('stock', 'stock+'.format_uang($detail_qty[$i]), false);
 					$this->db->update('item');
 				}
 			}
@@ -207,16 +207,16 @@ class Sell extends MY_Controller {
 			$data = $this->_set_data('delete');
 
 			// rollback stock
-			$sell = $this->db->where('sell_id', $id)->get('sell_d')->result();
-			foreach ($sell as $key => $value) {
+			$buy = $this->db->where('buy_id', $id)->get('buy_d')->result();
+			foreach ($buy as $key => $value) {
 				$this->db->where('id', $value->item_id);
-				$this->db->set('stock', 'stock+'.$value->qty, false);
+				$this->db->set('stock', 'stock-'.$value->qty, false);
 				$this->db->update('item');
 			}
 			$this->db->update($this->table, $data, ['id'=>$id]);
             
 			// clear
-			$this->db->delete('sell_d', ['sell_id'=>$id]);
+			$this->db->delete('buy_d', ['buy_id'=>$id]);
 						
             $this->db->trans_complete();
 

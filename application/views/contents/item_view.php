@@ -7,16 +7,16 @@
     </div>
     <?php endif ?>
     <div class="box-header with-border">
-        <?php if(empty($this->input->get('popup'))): ?>
-            <a href="<?php echo base_url('item/add') ?>" class="btn btn-default btn-sm"><i class="fa fa-plus"></i> Tambah Produk</a>
-        <?php endif ?>
-        <a href="<?php echo now_url() ?>" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i> Refresh</a>
-        <div class="pull-right">
-            <div class="has-feedback">
-                <input id="input_search" type="text" class="form-control input-sm" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
+        <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-9">
+                <a href="<?php echo base_url('item/add') ?>" class="btn btn-default"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo now_url() ?>" class="btn btn-default"><i class="fa fa-refresh"></i> Refresh</a>
             </div>
-        </div>
-    </div>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <input id="input_search" name="search" type="text" class="form-control" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
+            </div>           
+        </div>           
+    </div>           
     <div class="box-body no-padding">
         <div class="table-responsive no-margin">
             <table class="table table-hover table-striped">
@@ -27,7 +27,9 @@
                         <th>Kode Produk</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
+                        <?php if(!empty($this->input->get('popup'))): ?>
                         <th width="100">Aksi</th>
+                        <?php endif ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +37,9 @@
                             $no=1+$offset;
                             foreach ($data as $key => $value){
                       ?>
-                    <tr>
+                    <tr onclick="window.location.href = '<?php echo base_url('item/edit/'.$value->id); ?>'">
                         <td><?php echo $no; ?></td>
-                        <td><a href="<?php echo base_url('item/edit/'.$value->id); ?>"><?php echo $value->name; ?></a></td>
+                        <td><?php echo $value->name; ?></td>
                         <td><?php echo $value->sku; ?></td>
                         <td><?php echo number_format($value->bp); ?></td>
                         <td><?php echo number_format($value->sp); ?></td>
@@ -45,9 +47,6 @@
                             <?php if(!empty($this->input->get('popup'))): ?>
                                 <button class="btn btn-primary btn-choose-item" type="button" name="button" data-id="<?php echo $value->id ?>"><i class="fa fa-use"></i> Pilih</button>
                                 <div style="display:none" id="data-<?php echo $value->id ?>"><?php $value->bp=number_format($value->bp);$value->sp=number_format($value->sp);echo json_encode($value) ?></div>
-                            <?php else: ?>                            
-                                <a class="btn btn-default" href="<?php echo base_url('item/edit/'.$value->id); ?>"><i class="fa fa-edit"></i></a>
-                                <button class="btn btn-default" type="button" name="button" data-url="<?php echo base_url('item/delete/'.$value->id); ?>" onclick="return deleteData(this)"><i class="fa fa-trash"></i></button>
                             <?php endif ?>
                         </td>
                     </tr>

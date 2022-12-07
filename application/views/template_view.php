@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/').'css/jquery-ui-timepicker-addon.min.css'?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/').'css/general.css?220925'?>">
 
+    <?php $this->load->view('style/general') ?>
     <?php echo isset($css)?$css:'' ?>
 
     <!-- Google Font -->
@@ -98,6 +99,8 @@
                     <li class="<?php echo $this->uri->segment(1)==''?'active':''?>"><a href="<?php echo base_url() ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Dashboard</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='trans'?'active':''?>"><a href="<?php echo base_url('trans') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Keuangan</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='item'?'active':''?>"><a href="<?php echo base_url('item') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Produk</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='stock'?'active':''?>"><a href="<?php echo base_url('stock') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Stok</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='buy'?'active':''?>"><a href="<?php echo base_url('buy') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Pembelian</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='sell'?'active':''?>"><a href="<?php echo base_url('sell') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Penjualan</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='report'?'active':''?>"><a href="<?php echo base_url('report') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Laporan</span></a></li>
                 </ul>
