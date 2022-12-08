@@ -9,10 +9,10 @@ class Dashboard extends MY_Controller {
 
 	public function index()
 	{
-		$content['total_sell'] = $this->db->where('store_id', $this->session_store)->count_all_results('sell');
-		$content['total_in'] = $this->db->where('type', 'IN')->where('store_id', $this->session_store)->count_all_results('trans');
-		$content['total_out'] = $this->db->where('type', 'OUT')->where('store_id', $this->session_store)->count_all_results('trans');
-		$content['total_item'] = $this->db->where('store_id', $this->session_store)->count_all_results('item');
+		$content['total_sell'] = $this->db->where('deleted_at', null)->where('store_id', $this->session_store)->count_all_results('sell');
+		$content['total_in'] = $this->db->where('deleted_at', null)->where('type', 'IN')->where('store_id', $this->session_store)->count_all_results('trans');
+		$content['total_out'] = $this->db->where('deleted_at', null)->where('type', 'OUT')->where('store_id', $this->session_store)->count_all_results('trans');
+		$content['total_item'] = $this->db->where('deleted_at', null)->where('store_id', $this->session_store)->count_all_results('item');
 		$data['content'] = $this->load->view('contents/dashboard_view', $content, TRUE);
 		$this->load->view('template_view', $data);
 	}
