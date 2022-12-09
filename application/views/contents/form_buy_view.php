@@ -42,11 +42,10 @@
             <table id="tbl-item" class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>Kode Produk</th>
-                    <th>Nama Produk</th>
-                    <th>Jumlah</th>
-                    <th>Harga</th>
-                    <th>Total</th>
+                    <th>Produk</th>
+                    <th style="min-width:100px" >Jumlah</th>
+                    <th style="min-width:120px">Harga</th>
+                    <th style="min-width:140px">Total</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
@@ -55,8 +54,7 @@
                         <?php foreach ($detail as $key => $value) : ?>
                             <tr>
                                 <input type="hidden" name="detail-id[]" class="buy-id" value="<?php echo $value->item_id ?>">
-                                <td><?php echo $value->sku ?></td>
-                                <td><?php echo $value->name ?></td>
+                                <td><?php echo $value->name ?><br>(<?php echo $value->sku ?>)</td>
                                 <td><input type="text" name="detail-qty[]" class="input-uang buy-qty form-control" value="<?php echo number_format($value->qty) ?>"></td>
                                 <td><input type="text" name="detail-amount[]" class="input-uang buy-amount form-control" value="<?php echo number_format($value->amount) ?>"></td>
                                 <td><input type="text" name="detail-total[]" class="input-uang buy-total form-control" value="<?php echo number_format($value->qty*$value->amount) ?>"></td>
@@ -67,8 +65,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4"><strong>Total</strong></td>
-                        <td><strong><input id="buy-total-amount" readonly type="text" value="<?php echo number_format($total)?>" class="input-uang form-control"></strong></td>
+                        <td><strong>Total</strong></td>
+                        <td colspan="4"><strong><input id="buy-total-amount" readonly type="text" value="<?php echo number_format($total)?>" class="input-uang form-control"></strong></td>
                         <td></td>
                     </tr>
                 </tfoot>

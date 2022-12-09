@@ -86,7 +86,7 @@ class Item extends MY_Controller {
 
 			if(!validation_errors())
 			{
-				$this->load->view('template_view',$data);
+				$this->load->view(!empty($this->input->get('popup'))?'modals/template_view':'template_view', $data);
 			}
 			else
 			{
@@ -120,7 +120,7 @@ class Item extends MY_Controller {
 
 			if(!validation_errors())
 			{
-				$this->load->view('template_view',$data);
+				$this->load->view(!empty($this->input->get('popup'))?'modals/template_view':'template_view', $data);
 			}
 			else
 			{

@@ -26,7 +26,7 @@ function add_item(data)
         }
     }
     if(!exist){
-        $('#tbl-item tbody').append('<tr><input name="detail-id[]" class="buy-id" type="hidden" value="'+data.id+'"><td>'+data.sku+'</td><td>'+data.name+'</td><td><input name="detail-qty[]" class="input-uang form-control buy-qty" value="1"></td><td><input name="detail-amount[]" class="buy-amount input-uang form-control" value="'+data.bp+'"></td><td><input readonly name="total[]" class="buy-total input-uang form-control" value="'+data.bp+'"></td><td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td></tr>');
+        $('#tbl-item tbody').append('<tr><input name="detail-id[]" class="buy-id" type="hidden" value="'+data.id+'"><td>'+data.name+'<br>('+data.sku+')</td><td><input name="detail-qty[]" class="input-uang form-control buy-qty" value="1"></td><td><input name="detail-amount[]" class="buy-amount input-uang form-control" value="'+data.bp+'"></td><td><input readonly name="total[]" class="buy-total input-uang form-control" value="'+data.bp+'"></td><td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td></tr>');
     }
 
     calculate()

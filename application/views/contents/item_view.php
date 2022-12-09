@@ -9,7 +9,7 @@
     <div class="box-header with-border">
         <div class="row">
             <div class="col-sm-6 col-md-8 col-lg-9">
-                <a href="<?php echo base_url('item/add') ?>" class="btn btn-default"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo base_url('item/add').get_query_string() ?>" class="btn btn-default"><i class="fa fa-plus"></i> Tambah</a>
                 <a href="<?php echo now_url() ?>" class="btn btn-default"><i class="fa fa-refresh"></i> Refresh</a>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3">
@@ -37,7 +37,12 @@
                             $no=1+$offset;
                             foreach ($data as $key => $value){
                       ?>
-                    <tr onclick="window.location.href = '<?php echo base_url('item/edit/'.$value->id); ?>'">
+                    <?php if(!empty($this->input->get('popup'))): ?>
+                        <tr class="btn-choose-item" data-id="<?php echo $value->id ?>">
+                        <div style="display:none" id="data-<?php echo $value->id ?>"><?php echo json_encode($value) ?></div>
+                    <?php else: ?>
+                        <tr onclick="window.location.href = '<?php echo base_url('item/edit/'.$value->id).get_query_string(); ?>'">
+                    <?php endif ?>
                         <td><?php echo $no; ?></td>
                         <td><?php echo $value->name; ?></td>
                         <td><?php echo $value->sku; ?></td>
@@ -45,8 +50,7 @@
                         <td><?php echo number_format($value->sp); ?></td>
                         <td>
                             <?php if(!empty($this->input->get('popup'))): ?>
-                                <button class="btn btn-primary btn-choose-item" type="button" name="button" data-id="<?php echo $value->id ?>"><i class="fa fa-use"></i> Pilih</button>
-                                <div style="display:none" id="data-<?php echo $value->id ?>"><?php $value->bp=number_format($value->bp);$value->sp=number_format($value->sp);echo json_encode($value) ?></div>
+                                <a href="<?php echo base_url('item/edit/'.$value->id).get_query_string(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
                             <?php endif ?>
                         </td>
                     </tr>
