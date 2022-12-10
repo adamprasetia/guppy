@@ -39,7 +39,7 @@
                       ?>
                     <?php if(!empty($this->input->get('popup'))): ?>
                         <tr>
-                        <div style="display:none" id="data-<?php echo $value->id ?>"><?php echo json_encode($value) ?></div>
+                        <div style="display:none" id="data-<?php echo $value->id ?>"><?php echo json_encode($value, JSON_NUMERIC_CHECK) ?></div>
                     <?php else: ?>
                         <tr onclick="window.location.href = '<?php echo base_url('item/edit/'.$value->id).get_query_string(); ?>'">
                     <?php endif ?>

@@ -107,21 +107,18 @@ class Buy extends MY_Controller {
 		}else{
 			$this->db->trans_start();
 			$data = $this->_set_data();
-			$detail_item = $this->input->post('detail-id');
-			$detail_qty = $this->input->post('detail-qty');
-			$detail_amount = $this->input->post('detail-amount');
+			$detail = json_decode($this->input->post('detail'), true);
 			$this->db->insert($this->table, $data);
 			$buy_id = $this->db->insert_id();
-
-			for ($i=0; $i < count($detail_item); $i++) { 
+			foreach ($detail as $key => $value) {
 				$this->db->insert('buy_d', [
 					'buy_id'=>$buy_id,
-					'item_id'=>$detail_item[$i],
-					'qty'=>format_uang($detail_qty[$i]),
-					'amount'=>format_uang($detail_amount[$i]),
+					'item_id'=>$value['item_id'],
+					'qty'=>$value['qty'],
+					'amount'=>$value['amount']
 				]);
-				$this->db->where('id', $detail_item[$i]);
-				$this->db->set('stock', 'stock+'.format_uang($detail_qty[$i]), false);
+				$this->db->where('id', $value['item_id']);
+				$this->db->set('stock', 'stock+'.$value['qty'], false);
 				$this->db->update('item');
 			}
 			$this->db->trans_complete();
@@ -159,9 +156,7 @@ class Buy extends MY_Controller {
 		}else{
 			$this->db->trans_start();
 			$data = $this->_set_data('edit');
-			$detail_item = $this->input->post('detail-id');
-			$detail_qty = $this->input->post('detail-qty');
-			$detail_amount = $this->input->post('detail-amount');
+			$detail = json_decode($this->input->post('detail'), true);
 
 			$buy = $this->db->where('id', $id)->get('buy')->row();
 			$this->db->update($this->table, $data, ['id'=>$id]);
@@ -174,18 +169,16 @@ class Buy extends MY_Controller {
 				$this->db->update('item');
 			}
 			$this->db->delete('buy_d', ['buy_id'=>$id]);
-			if(!empty($detail_item)){
-				for ($i=0; $i < count($detail_item); $i++) { 
-					$this->db->insert('buy_d', [
-						'buy_id'=>$id,
-						'item_id'=>$detail_item[$i],
-						'qty'=>format_uang($detail_qty[$i]),
-						'amount'=>format_uang($detail_amount[$i]),
-					]);
-					$this->db->where('id', $detail_item[$i]);
-					$this->db->set('stock', 'stock+'.format_uang($detail_qty[$i]), false);
-					$this->db->update('item');
-				}
+			foreach ($detail as $key => $value) {
+				$this->db->insert('buy_d', [
+					'buy_id'=>$id,
+					'item_id'=>$value['item_id'],
+					'qty'=>$value['qty'],
+					'amount'=>$value['amount']
+				]);
+				$this->db->where('id', $value['item_id']);
+				$this->db->set('stock', 'stock+'.$value['qty'], false);
+				$this->db->update('item');
 			}
 
 			$this->db->trans_complete();

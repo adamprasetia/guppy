@@ -30,44 +30,59 @@
                 </tr>
             </table>
         </div>
-        <div class="box-body">
-            <div class="input-group">
-                <input id="input-kode" type="text" class="form-control" placeholder="Masukan Kode Produk...Lalu tekan ENTER">
-                <span class="input-group-btn">
-                    <button type="button" id="btn-item-add" class="btn btn-success">Pilih Produk</button>
-                </span>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h4><strong>DETAIL PEMBELIAN</strong></h4>
+            <h4 id="form-detail-title"></h4>
+            <button id="btn-detail-add" class="btn btn-success">Tambah</button>
+        </div>
+        <div id="form-detail" class="box-body" style="display:none">
+            <input type="hidden" id="detail-index" name="">
+            <div class="form-group">
+                <label for="">Kode Produk</label>
+                <div class="input-group">
+                    <input id="item_id" type="hidden" class="form-control" placeholder="">
+                    <input id="item_sku" type="text" class="form-control" placeholder="">
+                    <span class="input-group-btn">
+                        <button type="button" id="btn-item-add" class="btn btn-success">Pilih Produk</button>
+                    </span>
+                </div>
             </div>
-
+            <div class="form-group">
+                <label for="">Nama Produk</label>
+                <input readonly type="text" id="item_name" name="item_name" class="form-control" value="">        
+            </div>
+            <div class="form-group">
+                <label>Jumlah</label>
+                <input type="text" id="qty" name="qty" class="input-uang form-control" value="">
+            </div>
+            <div class="form-group">
+                <label>Harga Satuan</label>
+                <input type="text" id="amount" name="amount" class="input-uang form-control" value="">
+            </div>
+            <button id="btn-detail-save" class="btn btn-success">Tambahkan</button>
+            <button id="btn-detail-cancel" class="btn btn-default">Batal</button>
+        </div>
+        <div class="box-body">
+            <textarea style="display:none" id="detail" name="detail" type="text"><?php echo isset($detail)?json_encode($detail, JSON_NUMERIC_CHECK):'[]' ?></textarea>
             <div class="table-responsive no-margin">
-            <table id="tbl-item" class="table table-bordered">
+            <table id="tbl-item" class="table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>Produk</th>
-                    <th style="min-width:100px" >Jumlah</th>
-                    <th style="min-width:120px">Harga</th>
-                    <th style="min-width:140px">Total</th>
+                    <th>Jumlah</th>
+                    <th>Harga</th>
+                    <th>Total</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <?php $total = 0;if(!empty($detail)) :?>
-                        <?php foreach ($detail as $key => $value) : ?>
-                            <tr>
-                                <input type="hidden" name="detail-id[]" class="buy-id" value="<?php echo $value->item_id ?>">
-                                <td><?php echo $value->name ?><br>(<?php echo $value->sku ?>)</td>
-                                <td><input type="text" name="detail-qty[]" class="input-uang buy-qty form-control" value="<?php echo number_format($value->qty) ?>"></td>
-                                <td><input type="text" name="detail-amount[]" class="input-uang buy-amount form-control" value="<?php echo number_format($value->amount) ?>"></td>
-                                <td><input type="text" name="detail-total[]" class="input-uang buy-total form-control" value="<?php echo number_format($value->qty*$value->amount) ?>"></td>
-                                <td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td>
-                            </tr>                        
-                        <?php $total+=$value->qty*$value->amount;endforeach ?>
-                    <?php endif ?>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td><strong>Total</strong></td>
-                        <td colspan="4"><strong><input id="buy-total-amount" readonly type="text" value="<?php echo number_format($total)?>" class="input-uang form-control"></strong></td>
-                        <td></td>
+                        <td colspan="4"><strong id="buy-total-amount"></strong></td>
                     </tr>
                 </tfoot>
             </table>

@@ -9,51 +9,64 @@ $('#input-kode').keypress(function (e) {
     if(key == 13)  // the enter key code
     {
         $.get('<?php echo base_url() ?>item/find?search='+$(this).val(), function(data, status){
-            add_item(data);
+            add_item(JSON.parse(data));
         });
         $('#input-kode').val('');
     }
 });   
 function add_item(data)
 {
-    data = JSON.parse(data);
+    if(data){
+        var detail = JSON.parse($('#detail').val())
 
-    var exist = false;
-    for (let index = 0; index < $('.buy-qty').length; index++) {
-        if($('.buy-id')[index].value == data.id){
-            exist = true;
-            $('.buy-qty')[index].value = parseInt($('.buy-qty')[index].value.replace(',',''))+1;
+        var exist = false;
+        $.each(detail, function(index, value){
+            if(value.item_id == data.id && value.amount == data.amount){
+                exist = true;
+                detail[index].qty++;
+            }
+        })
+        if(!exist){
+            detail.push({
+                'qty':data.qty,
+                'amount':data.amount,
+                'item_id':data.item_id,
+                'name':data.name,
+                'sku':data.sku,
+            });
         }
+        console.log(detail)
+        $('#detail').html(JSON.stringify(detail));
+        gen_table_detail()
     }
-    if(!exist){
-        $('#tbl-item tbody').append('<tr><input name="detail-id[]" class="buy-id" type="hidden" value="'+data.id+'"><td>'+data.name+'<br>('+data.sku+')</td><td><input name="detail-qty[]" class="input-uang form-control buy-qty" value="1"></td><td><input name="detail-amount[]" class="buy-amount input-uang form-control" value="'+data.bp+'"></td><td><input readonly name="total[]" class="buy-total input-uang form-control" value="'+data.bp+'"></td><td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td></tr>');
-    }
-
-    calculate()
-
-    $('.input-uang').priceFormat({
-        prefix: '',
-        thousandsSeparator: ',',
-        centsLimit: 0
-    });
-
+}
+function edit_item(index, item){
+    var data = JSON.parse($('#detail').val())
+    data[index] = item
+    console.log(data)
+    $('#detail').html(JSON.stringify(data))
+    gen_table_detail()
 }
 $("#general-modal-iframe").on('load',function () {
     $(this).contents().find('.btn-choose-item').click(function () {
         var id = $(this).attr('data-id');
-        var data = $("#general-modal-iframe").contents().find('#data-'+id).html();
-        add_item(data);
+        var data = JSON.parse($("#general-modal-iframe").contents().find('#data-'+id).html());
+        $('#item_id').val(data.id)
+        $('#item_sku').val(data.sku)
+        $('#item_name').val(data.name)
+        $('#qty').val(1)
+        $('#amount').val(data.bp)
+
+        $('.input-uang').priceFormat({
+            prefix: '',
+            thousandsSeparator: ',',
+            centsLimit: 0
+        });
 
         $('#general-modal').modal('hide');
     });
 });
 
-$('body').on('change keyup', '.buy-qty', function(){
-    calculate()
-});
-$('body').on('change keyup', '.buy-amount', function(){
-    calculate()
-});
 $('body').on('click', '.btn-delete-row', function(){
     var t = $(this);
     swal({
@@ -65,23 +78,75 @@ $('body').on('click', '.btn-delete-row', function(){
       closeOnConfirm: true
     },function(result){
         if(result){
-            $(t).parent().parent().remove();
-            calculate()
+            // $(t).parent().parent().remove();
+            var data = JSON.parse($('#detail').val())
+            const index = t.attr('data-index');
+            if (index > -1) { // only splice array when item is found
+                data.splice(index, 1); // 2nd parameter means remove one item only
+            }
+            $('#detail').html(JSON.stringify(data))
+            gen_table_detail()
         }
     })
   });
 
-function calculate()
+gen_table_detail()
+function gen_table_detail()
 {
-    var total_all = 0;
-    for (let index = 0; index < $('.buy-qty').length; index++) {
-        $total = parseInt($('.buy-qty')[index].value.replaceAll(',',''))*parseInt($('.buy-amount')[index].value.replaceAll(',',''));
-        console.log($total)
-        $('.buy-total')[index].value = $total;
-        total_all += $total;
+    var data = JSON.parse($('#detail').val())
+    console.log(data)
+    var body ='';
+    var total = 0;
+    $.each(data, function(index, value){
+        total += value.qty*value.amount
+        body += '<tr><td onclick="detail_edit('+index+')">'+value.name+'<br>('+value.sku+')</td><td onclick="detail_edit('+index+')">'+value.qty.format()+'</td><td>'+value.amount.format()+'</td><td>'+(value.qty*value.amount).format()+'</td><td><button data-index="'+index+'" type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash"></i></button></td></tr>'
+    })
+    $('#tbl-item tbody').html(body);
+    $('#buy-total-amount').html(total.format());
+}
+
+$('#btn-detail-add').click(function(){
+    $('#btn-detail-add').hide()
+    $('#form-detail').show()
+    $('#btn-item-add').click()
+    $('#btn-detail-save').html('Tambahkan')
+    $('#form-detail-title').html('Formulir Tambah Item')
+})
+$('#btn-detail-cancel').click(function(){
+    $('#btn-detail-add').show()
+    $('#form-detail').hide()
+    $('#form-detail-title').html('')
+})
+$('#btn-detail-save').click(function(){
+    item = {
+        'item_id':$('#item_id').val(),
+        'name':$('#item_name').val(),
+        'sku':$('#item_sku').val(),
+        'qty':parseInt($('#qty').val().replaceAll(',','')),
+        'amount':parseInt($('#amount').val().replaceAll(',','')),
     }
-    console.log(total_all);
-    $('#buy-total-amount').val(total_all);
+    if($(this).text() == 'Tambahkan'){
+        add_item(item)
+    }else{
+        index = $('#detail-index').val()
+        edit_item(index, item)
+    }
+    $('#btn-detail-add').show()
+    $('#form-detail').hide()
+    $('#form-detail-title').html('')
+})
+
+function detail_edit(index){
+    var data = JSON.parse($('#detail').val())
+    $('#detail-index').val(index)
+    $('#item_sku').val(data[index].sku)
+    $('#item_name').val(data[index].name)
+    $('#qty').val(data[index].qty)
+    $('#amount').val(data[index].amount)
+    $('#btn-detail-add').hide()
+    $('#form-detail').show()
+    $('#btn-detail-save').html('Update')
+    $('#form-detail-title').html('Formulir Update Item')
 
     $('.input-uang').priceFormat({
         prefix: '',

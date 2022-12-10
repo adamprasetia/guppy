@@ -161,7 +161,7 @@ class Item extends MY_Controller {
 		$search = $this->input->get('search');
 		$this->db->where('sku', $search);
 		$data = $this->db->get('item')->row();
-		echo json_encode($data);
+		echo json_encode($data, JSON_NUMERIC_CHECK);
 	}
 
 }
