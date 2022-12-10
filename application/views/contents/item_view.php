@@ -38,16 +38,16 @@
                             foreach ($data as $key => $value){
                       ?>
                     <?php if(!empty($this->input->get('popup'))): ?>
-                        <tr class="btn-choose-item" data-id="<?php echo $value->id ?>">
+                        <tr>
                         <div style="display:none" id="data-<?php echo $value->id ?>"><?php echo json_encode($value) ?></div>
                     <?php else: ?>
                         <tr onclick="window.location.href = '<?php echo base_url('item/edit/'.$value->id).get_query_string(); ?>'">
                     <?php endif ?>
-                        <td><?php echo $no; ?></td>
-                        <td><?php echo $value->name; ?></td>
-                        <td><?php echo $value->sku; ?></td>
-                        <td><?php echo number_format($value->bp); ?></td>
-                        <td><?php echo number_format($value->sp); ?></td>
+                        <td data-id="<?php echo $value->id ?>" <?php echo !empty($this->input->get('popup'))?'class="btn-choose-item"':'' ?>><?php echo $no; ?></td>
+                        <td data-id="<?php echo $value->id ?>" <?php echo !empty($this->input->get('popup'))?'class="btn-choose-item"':'' ?>><?php echo $value->name; ?></td>
+                        <td data-id="<?php echo $value->id ?>" <?php echo !empty($this->input->get('popup'))?'class="btn-choose-item"':'' ?>><?php echo $value->sku; ?></td>
+                        <td data-id="<?php echo $value->id ?>" <?php echo !empty($this->input->get('popup'))?'class="btn-choose-item"':'' ?>><?php echo number_format($value->bp); ?></td>
+                        <td data-id="<?php echo $value->id ?>" <?php echo !empty($this->input->get('popup'))?'class="btn-choose-item"':'' ?>><?php echo number_format($value->sp); ?></td>
                         <td>
                             <?php if(!empty($this->input->get('popup'))): ?>
                                 <a href="<?php echo base_url('item/edit/'.$value->id).get_query_string(); ?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>
