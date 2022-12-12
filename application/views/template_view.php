@@ -102,6 +102,7 @@
                     <li class="<?php echo $this->uri->segment(1)=='stock'?'active':''?>"><a href="<?php echo base_url('stock') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Stok</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='buy'?'active':''?>"><a href="<?php echo base_url('buy') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Pembelian</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='sell'?'active':''?>"><a href="<?php echo base_url('sell') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Penjualan</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='cashier'?'active':''?>"><a href="<?php echo base_url('cashier') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Kasir</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='report'?'active':''?>"><a href="<?php echo base_url('report') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Laporan</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->
