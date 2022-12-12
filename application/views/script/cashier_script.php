@@ -178,6 +178,7 @@ $('body').on('keypress', '.input-qty', function(e){
         $(this).parent().attr('onclick', 'detail_edit(this, '+index+')')
         // $(this).parent().html(val)
         gen_table_detail()
+        $('#input-kode').focus()
     }
 })
 </script>

@@ -41,7 +41,7 @@
             <!-- Logo -->
             <a href="<?php echo base_url(); ?>" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><img width="20px" src="<?php echo base_url('assets/img/logo-small.png') ?>"></span>
+                <span class="logo-mini">G</span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>Guppy</b></span>
             </a>
