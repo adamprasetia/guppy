@@ -126,7 +126,7 @@
     <?php endif ?>
 
 
-    <?php $total_sell=0;if(!empty($sell)): ?>
+    <?php $total_sell=0;$total_diskon=0;if(!empty($sell)): ?>
     <div class="box-header with-border">
         <h5><strong>PENJUALAN</strong></h5>
     </div>
@@ -160,6 +160,32 @@
             </table>
         </div>
     </div>
+    <div class="box-header with-border">
+        <h5><strong>POTONGAN</strong></h5>
+    </div>
+    <div class="box-body no-padding">
+        <div class="table-responsive no-margin">
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Keterangan</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1;foreach ($sell as $key => $value){ ?>
+                        <?php if(!empty($value->diskon)):?>
+                        <tr>
+                            <td>Diskon</td>
+                            <td><?php echo number_format($value->diskon); ?></td>
+                        </tr>
+                        <?php endif ?>
+                      <?php $total_diskon += $value->diskon;$i++; } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <?php else: ?>
         <div class="box-body">
             <i>Tidak ada penjualan</i>
@@ -196,8 +222,12 @@
                         <td><?php echo number_format($total_sell) ?></td>
                     </tr>
                     <tr>
+                        <td>Potongan Penjualan</td>
+                        <td><?php echo number_format($total_diskon) ?></td>
+                    </tr>
+                    <tr>
                         <td>Total Rugi/Laba</td>
-                        <td><strong><?php echo number_format($total_in+$total_sell-$total_out-$total_buy) ?></strong></td>
+                        <td><strong><?php echo number_format($total_in+$total_sell-$total_out-$total_buy-$total_diskon) ?></strong></td>
                     </tr>
                 </tbody>
             </table>

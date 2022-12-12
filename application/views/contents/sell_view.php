@@ -37,6 +37,8 @@
                     <tr>
                         <th width="50">No</th>
                         <th>Tanggal</th>
+                        <th>Sub Total</th>
+                        <th>Diskon</th>
                         <th>Total</th>
                         <th>Keterangan</th>
                         <th>Nomor</th>
@@ -51,6 +53,8 @@
                         <td><?php echo $no; ?></td>
                         <td><?php echo format_dmy($value->date); ?></td>
                         <td><?php echo number_format($value->total); ?></td>
+                        <td><?php echo number_format($value->diskon); ?></td>
+                        <td><?php echo number_format($value->total-$value->diskon); ?></td>
                         <td><?php echo $value->remark; ?></td>
                         <td><?php echo $value->nomor; ?></td>
                     </tr>
