@@ -36,10 +36,10 @@
                 <thead>
                     <tr>
                         <th width="50">No</th>
+                        <th>Nomor</th>
                         <th>Tanggal</th>
                         <th>Total</th>
                         <th>Keterangan</th>
-                        <th>Nomor</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,10 +49,10 @@
                       ?>
                     <tr onclick="window.location.href = '<?php echo base_url('buy/edit/'.$value->id); ?>'">
                         <td><?php echo $no; ?></td>
+                        <td><?php echo $value->nomor; ?></td>
                         <td><?php echo format_dmy($value->date); ?></td>
                         <td><?php echo number_format($value->total); ?></td>
                         <td><?php echo $value->remark; ?></td>
-                        <td><?php echo $value->nomor; ?></td>
                     </tr>
                       <?php $no++; } ?>
                 </tbody>

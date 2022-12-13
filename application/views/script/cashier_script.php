@@ -5,17 +5,17 @@ $('#btn-item-add').click(function(){
     $('#general-modal').modal('show');
 })
 $('#diskon').on('keyup change', function(){
-    var detail = JSON.parse($('#detail').val())
-    detail.diskon = $(this).val().replace(',', '')
-    $('#detail').html(JSON.stringify(detail));
+    var detail = JSON.parse($('.detail').val())
+    detail.diskon = parseInt($(this).val().replace(',', ''))
+    $('.detail').html(JSON.stringify(detail));
     gen_table_detail()
 
 })
 $('#total-pembayaran').on('keyup change', function(){
     console.log($(this).val().replace(',', ''))
-    var detail = JSON.parse($('#detail').val())
+    var detail = JSON.parse($('.detail').val())
     detail.total_pembayaran = $(this).val().replace(',', '')
-    $('#detail').html(JSON.stringify(detail));
+    $('.detail').html(JSON.stringify(detail));
     gen_table_detail()
 
 })
@@ -32,7 +32,7 @@ $('#input-kode').keypress(function (e) {
 function add_item(data)
 {
     if(data){
-        var detail = JSON.parse($('#detail').val())
+        var detail = JSON.parse($('.detail').val())
 
         var exist = false;
         $.each(detail.item, function(index, value){
@@ -51,15 +51,15 @@ function add_item(data)
             });
         }
         console.log(detail)
-        $('#detail').html(JSON.stringify(detail));
+        $('.detail').html(JSON.stringify(detail));
         gen_table_detail()
     }
 }
 function edit_item(index, item){
-    var data = JSON.parse($('#detail').val())
+    var data = JSON.parse($('.detail').val())
     data.item[index] = item
     console.log(data)
-    $('#detail').html(JSON.stringify(data))
+    $('.detail').html(JSON.stringify(data))
     gen_table_detail()
 }
 $("#general-modal-iframe").on('load',function () {
@@ -84,12 +84,12 @@ $('body').on('click', '.btn-delete-row', function(){
     },function(result){
         if(result){
             // $(t).parent().parent().remove();
-            var data = JSON.parse($('#detail').val())
+            var data = JSON.parse($('.detail').val())
             const index = t.attr('data-index');
             if (index > -1) { // only splice array when item is found
                 data.item.splice(index, 1); // 2nd parameter means remove one item only
             }
-            $('#detail').html(JSON.stringify(data))
+            $('.detail').html(JSON.stringify(data))
             gen_table_detail()
             $('#input-kode').focus()
         }
@@ -99,7 +99,7 @@ $('body').on('click', '.btn-delete-row', function(){
 gen_table_detail()
 function gen_table_detail()
 {
-    var data = JSON.parse($('#detail').val())
+    var data = JSON.parse($('.detail').val())
     console.log(data)
     var body ='';
     var sub_total = 0;
@@ -147,7 +147,7 @@ $('#btn-detail-save').click(function(){
 })
 
 function detail_edit(t, index){
-    var data = JSON.parse($('#detail').val())
+    var data = JSON.parse($('.detail').val())
     $(t).removeAttr('onclick')
     $(t).html('<input type="number" min="1" style="min-width:100px" data-index="'+index+'" class="input-qty form-control" value="'+data.item[index].qty+'">')
 
@@ -172,13 +172,17 @@ $('body').on('keypress', '.input-qty', function(e){
     var index = $(this).attr('data-index');
     if(key == 13)  // the enter key code
     {
-        var data = JSON.parse($('#detail').val())
+        var data = JSON.parse($('.detail').val())
         data.item[index].qty = val
-        $('#detail').html(JSON.stringify(data))
+        $('.detail').html(JSON.stringify(data))
         $(this).parent().attr('onclick', 'detail_edit(this, '+index+')')
         // $(this).parent().html(val)
         gen_table_detail()
         $('#input-kode').focus()
     }
+})
+
+$('.btn_print').click(function(){
+    $('#form_print').submit()
 })
 </script>

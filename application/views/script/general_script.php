@@ -16,7 +16,7 @@ function htmlEntities(str) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 // Event Listener
-$('form').submit(function (e) {
+$('#form_data').submit(function (e) {
   e.preventDefault();
 });
 

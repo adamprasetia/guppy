@@ -70,4 +70,12 @@ class Cashier extends MY_Controller {
 
     }
 
+    public function print()
+    {
+        $data = json_decode($this->input->post('detail'));
+        $data->nomor = $this->input->post('nomor');
+        $data->store = $this->db->where('id', $this->session_store)->get('store')->row();
+        $this->load->view('contents/struk_view', ['data'=>$data]);
+    }
+
 }

@@ -25,7 +25,13 @@
                 <tr>
                     <td><label>Nomor</label></td>
                     <td>
-                        <input type="text" id="nomor" name="nomor" class="form-control" value="<?php echo isset($data->nomor)?$data->nomor:'' ?>">        
+                        <input type="text" id="nomor" name="nomor" class="form-control" value="<?php echo isset($data->nomor)?$data->nomor:time() ?>">        
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Diskon</label></td>
+                    <td>
+                        <input type="text" id="diskon" name="diskon" class="input-uang form-control" value="<?php echo isset($data->diskon)?$data->diskon:'' ?>">        
                     </td>
                 </tr>
             </table>

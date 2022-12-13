@@ -54,6 +54,7 @@ class Sell extends MY_Controller {
 		$this->form_validation->set_rules('date', 'Tanggal', 'trim|required');
 		$this->form_validation->set_rules('remark', 'Keterangan', 'trim');
 		$this->form_validation->set_rules('nomor', 'Nomor', 'trim');
+		$this->form_validation->set_rules('diskon', 'Diskon', 'trim');
 	}
 	
 	private function _set_data($action = 'add')
@@ -61,11 +62,13 @@ class Sell extends MY_Controller {
 		$date		= $this->input->post('date');
 		$remark		= $this->input->post('remark');
 		$nomor		= $this->input->post('nomor');
+		$diskon		= $this->input->post('diskon');
 
 		$data = array(
 			'date' => format_ymd($date),
 			'remark' => $remark,
 			'nomor' => $nomor,
+			'diskon' => format_uang($diskon),
             'store_id' => $this->session_store,
 		);
 

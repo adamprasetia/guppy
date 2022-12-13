@@ -13,6 +13,12 @@
         <div class="box-body">
             <table class="table table-bordered">                
                 <tr>
+                    <td><label>Nomor</label></td>
+                    <td>
+                        <input type="text" id="nomor" name="nomor" class="form-control" value="<?php echo isset($data->nomor)?$data->nomor:time() ?>">        
+                    </td>
+                </tr>
+                <tr>
                     <td><label>Tanggal*</label></td>
                     <td><input type="text" id="date" name="date" class="form-control datetimepicker" value="<?php echo isset($data->date)?format_dmy($data->date):date('d/m/Y') ?>"></td>
                 </tr>
@@ -20,12 +26,6 @@
                     <td><label>Keterangan</label></td>
                     <td>
                         <input type="text" id="remark" name="remark" class="form-control" value="<?php echo isset($data->remark)?$data->remark:'' ?>">        
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Nomor</label></td>
-                    <td>
-                        <input type="text" id="nomor" name="nomor" class="form-control" value="<?php echo isset($data->nomor)?$data->nomor:'' ?>">        
                     </td>
                 </tr>
             </table>
