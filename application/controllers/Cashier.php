@@ -43,7 +43,9 @@ class Cashier extends MY_Controller {
 
         $this->db->trans_start();
         $data = $this->_set_data();
+        if(!empty($detail->diskon)){
         $data['diskon'] = $detail->diskon;
+        }
         $detail = json_decode($this->input->post('detail'), true);
         $this->db->insert('sell', $data);
         $sell_id = $this->db->insert_id();

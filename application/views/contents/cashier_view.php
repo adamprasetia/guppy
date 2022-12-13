@@ -45,14 +45,14 @@
                 <div class="box-body">
                     <table class="table table-bordered">                
                         <tr>
-                            <td><label>Tanggal</label></td>
-                            <td><input type="text" id="date" name="date" class="form-control datetimepicker" value="<?php echo isset($data->date)?format_dmy($data->date):date('d/m/Y') ?>"></td>
-                        </tr>
-                        <tr>
                             <td><label>Order ID</label></td>
                             <td>
                                 <input type="text" id="nomor" name="nomor" class="form-control" value="<?php echo isset($data->nomor)?$data->nomor:time() ?>">        
                             </td>
+                        </tr>
+                        <tr>
+                            <td><label>Tanggal</label></td>
+                            <td><input type="text" id="date" name="date" class="form-control datetimepicker" value="<?php echo isset($data->date)?format_dmy($data->date):date('d/m/Y') ?>"></td>
                         </tr>
                     </table>
                 </div>
@@ -91,7 +91,7 @@
     </div>
     <div class="box">
         <div class="box-body">
-            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('cashier/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_data" data-idle="<i class='fa fa-save'></i> Simpan" data-process="Menyimpan...">Checkout</button>
+            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('cashier/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_data" data-idle="Checkout" data-process="Menyimpan...">Checkout</button>
             <button type="button" class="btn_print btn btn-default">Cetak</button>
         </div>
     </div>

@@ -165,6 +165,15 @@ $('#input-kode').keypress(function (e) {
         $('#input-kode').val('');
     }
 });   
+$('#input-kode').focusout(function (e) {
+    $.get('<?php echo base_url() ?>item/find?search='+$(this).val(), function(data, status){
+        add_item(JSON.parse(data));
+        if(JSON.parse(data)){
+            $('#input-kode').focus()
+        }
+    });
+    $('#input-kode').val('');
+});   
 
 $('body').on('keypress', '.input-qty', function(e){
     var key = e.which;
@@ -176,10 +185,20 @@ $('body').on('keypress', '.input-qty', function(e){
         data.item[index].qty = val
         $('.detail').html(JSON.stringify(data))
         $(this).parent().attr('onclick', 'detail_edit(this, '+index+')')
-        // $(this).parent().html(val)
         gen_table_detail()
         $('#input-kode').focus()
     }
+})
+
+$('body').on('focusout', '.input-qty', function(e){
+    var val = parseInt($(this).val());
+    var index = $(this).attr('data-index');
+    var data = JSON.parse($('.detail').val())
+    data.item[index].qty = val
+    $('.detail').html(JSON.stringify(data))
+    $(this).parent().attr('onclick', 'detail_edit(this, '+index+')')
+    gen_table_detail()
+    $('#input-kode').focus()
 })
 
 $('.btn_print').click(function(){

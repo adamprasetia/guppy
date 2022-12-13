@@ -69,5 +69,9 @@ hr {
 <td colspan = '3'><div style='text-align:right; color:black'>Kembali : </div></td><td style='text-align:right; font-size:16pt; color:black'><?php echo !empty($data->total_pembayaran)?number_format($data->total_pembayaran-($total-$data->diskon)):'0' ?></td>
 </tr>
 </table>
-<table style='width:350; font-size:12pt;' cellspacing='2'><tr></br><td align='center'>****** TERIMAKASIH ******</br></td></tr></table></center></body>
+<table style='width:350; font-size:12pt;' cellspacing='2'><tr></br><td align='center'>****** TERIMAKASIH ******</br></td></tr></table></center>
+<script>
+    window.print()
+</script>
+</body>
 </html>
