@@ -48,6 +48,19 @@ class Login extends CI_Controller {
 			$store_id = $this->db->where('user_id', $userdata['id'])->get('user_store')->row()->store_id;
 			$this->session->set_userdata('session_store', $store_id);
 			$this->session->set_userdata('session_login', $userdata);
+			// get role
+			$module = $this->db->from('role_user a')
+			->select('c.name')
+			->where('id_user', $userdata['id'])
+			->join('role_module b','a.id_role=b.id_role', 'left')
+			->join('module c','c.id=b.id_module','left')
+			->get()->result();
+
+			$module = array_map(function($v){
+				return $v->name;
+			}, $module);
+			
+			$this->session->set_userdata('session_module', $module);
 			return true;
 		} else {
 			$this->form_validation->set_message('check_auth','Login fail');

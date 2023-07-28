@@ -104,6 +104,13 @@
                     <li class="<?php echo $this->uri->segment(1)=='sell'?'active':''?>"><a href="<?php echo base_url('sell') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Penjualan</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='cashier'?'active':''?>"><a href="<?php echo base_url('cashier') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Kasir</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='report'?'active':''?>"><a href="<?php echo base_url('report') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Laporan</span></a></li>
+                    <?php if(in_array('super-admin', $this->session_module)):?>
+                    <li class="header">ADMIN</li>
+                    <li class="<?php echo $this->uri->segment(1)=='user'?'active':''?>"><a href="<?php echo base_url('user') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>User</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='role'?'active':''?>"><a href="<?php echo base_url('role') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Role</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='module'?'active':''?>"><a href="<?php echo base_url('module') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Module</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='store'?'active':''?>"><a href="<?php echo base_url('store') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Store</span></a></li>
+                    <?php endif ?>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>

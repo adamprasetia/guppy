@@ -1,9 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Store extends MY_Controller {
+class Module extends MY_Controller {
 
 	private $limit = 15;
-	private $table = 'store';
+	private $table = 'module';
 
 	function __construct()
    	{
@@ -22,26 +22,38 @@ class Store extends MY_Controller {
 		$this->_filter();
 		$total = $this->db->count_all_results($this->table);
 		$this->_filter();
-		$store_view['data'] 	= $this->db->get($this->table, $this->limit, $offset)->result();
-		$store_view['offset'] = $offset;
-		$store_view['paging'] = gen_paging($total,$this->limit);
-		$store_view['total'] 	= gen_total($total,$this->limit,$offset);
-		$data['content'] 	= $this->load->view('contents/store_view', $store_view, TRUE);
+		$module_view['data'] 	= $this->db->get($this->table, $this->limit, $offset)->result();
+		$module_view['offset'] = $offset;
+		$module_view['paging'] = gen_paging($total,$this->limit);
+		$module_view['total'] 	= gen_total($total,$this->limit,$offset);
+		$data['content'] 	= $this->load->view('contents/module_view', $module_view, TRUE);
 
 		$this->load->view('template_view', $data);
 	}
 
 	private function _set_rules()
 	{
-		$this->form_validation->set_rules('name', 'Nama Toko', 'trim|required');
+		$this->form_validation->set_rules('name', 'Nama Modul', 'trim|required');
+		$this->form_validation->set_rules('parent', 'Parent', 'trim');
+		$this->form_validation->set_rules('link', 'Link', 'trim');
+		$this->form_validation->set_rules('icon', 'Icon', 'trim');
+		$this->form_validation->set_rules('order', 'Order', 'trim');
 	}
 	
 	private function _set_data($type = 'add')
 	{
 		$name 		= $this->input->post('name');
+		$parent 	= $this->input->post('parent');
+		$link 		= $this->input->post('link');
+		$icon 		= $this->input->post('icon');
+		$order 		= $this->input->post('order');
 
 		$data = array(
 			'name' => $name,
+			'parent' => $parent,
+			'link' => $link,
+			'icon' => $icon,
+			'order' => $order,
 		);
 
 		if($type == 'add'){
@@ -65,8 +77,8 @@ class Store extends MY_Controller {
 	{
 		$this->_set_rules();
 		if ($this->form_validation->run()===FALSE) {
-			$data['content'] = $this->load->view('contents/form_store_view', [
-				'action'=>base_url('store/add').get_query_string()
+			$data['content'] = $this->load->view('contents/form_module_view', [
+				'action'=>base_url('module/add').get_query_string()
 			],true);
 
 			if(!validation_errors())
@@ -97,9 +109,9 @@ class Store extends MY_Controller {
 		$this->_set_rules();
 		if ($this->form_validation->run()===FALSE) {
 			$this->db->where('id', $id);
-			$store_view['data'] = $this->db->get($this->table)->row();
-			$store_view['action'] = base_url('store/edit/'.$id).get_query_string();
-			$data['content'] = $this->load->view('contents/form_store_view',$store_view,true);
+			$module_view['data'] = $this->db->get($this->table)->row();
+			$module_view['action'] = base_url('module/edit/'.$id).get_query_string();
+			$data['content'] = $this->load->view('contents/form_module_view',$module_view,true);
 
 			if(!validation_errors())
 			{
@@ -107,7 +119,7 @@ class Store extends MY_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'error', 'title'=>'Something wrong', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'error', 'title'=>'Terjadi Kesalahan !', 'message'=>strip_tags(validation_errors())));
 			}
 
 		}else{
@@ -128,7 +140,7 @@ class Store extends MY_Controller {
 	{
 		if ($id) {
 			$data = $this->_set_data('delete');
-			$this->db->update($this->table, $data,['id'=>$id]);
+			$this->db->delete($this->table, ['id'=>$id]);
 			$error = $this->db->error();
 			if(empty($error['message'])){
 				$response = array('id'=>$id, 'action'=>'delete', 'message'=>'Data berhasil dihapus');

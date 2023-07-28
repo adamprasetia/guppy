@@ -33,17 +33,13 @@ class User extends MY_Controller {
 
 	private function _set_rules($type = 'add', $id = '')
 	{
-		$this->form_validation->set_rules('nip', 'NIP', 'trim|required');
 		$this->form_validation->set_rules('fullname', 'Nama Lengkap', 'trim|required');
 		$this->form_validation->set_rules('phone', 'Telepon', 'trim');
-		$this->form_validation->set_rules('role[]', 'Hak Akses', 'trim|required');
-		$this->form_validation->set_rules('skpd[]', 'Hak Akses SKPD', 'trim|required');
+		$this->form_validation->set_rules('role[]', 'Hak Akses', 'trim');
 		if($type == 'add'){
-			$this->form_validation->set_rules('username', 'Username', 'trim|callback__validation_username');
 			$this->form_validation->set_rules('email', 'Email', 'trim|callback__validation_email');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		}else{
-			$this->form_validation->set_rules('username', 'Username', 'trim|callback__validation_username['.$id.']');
 			$this->form_validation->set_rules('email', 'Email', 'trim|callback__validation_email['.$id.']');
 			$this->form_validation->set_rules('password', 'Password', 'trim');
 		}
@@ -69,42 +65,17 @@ class User extends MY_Controller {
 		return true;
 	}
 	
-	public function _validation_username($data, $id)
-	{
-		if(empty($data)){
-			return true;
-		}
-		if(!empty($id)){
-			$username = @$this->db->where('username', $data)->where('id <>', $id)->get('user')->row()->username;
-			if($username == $data){
-				$this->form_validation->set_message('_validation_username', 'Username '.$username.' sudah pernah digunakan user lain');
-				return false;
-			}
-		}else{
-			$username = @$this->db->where('username', $data)->get('user')->row()->username;
-			if($username == $data){
-				$this->form_validation->set_message('_validation_username', 'Username '.$username.' sudah pernah digunakan user lain');
-				return false;
-			}
-		}
-		return true;
-	}
-
 	private function _set_data($type = 'add')
 	{
-		$nip 			= $this->input->post('nip');
 		$fullname 		= $this->input->post('fullname');
 		$email 			= $this->input->post('email');
 		$phone 			= $this->input->post('phone');
-		$username 		= $this->input->post('username');
 		$password 		= $this->input->post('password');
 
 		$data = array(
-			'nip' => $nip,
 			'fullname' => $fullname,
 			'email' => $email,
 			'phone' => $phone,
-			'username' => $username,
 		);
 		if(!empty($password)){
 			$data['password'] = password_hash($password, PASSWORD_BCRYPT);
@@ -169,15 +140,6 @@ class User extends MY_Controller {
 				$message = $error['message'];
 			}
 
-			$skpds = $this->input->post('skpd');
-			$data_skpd = [];
-			foreach ($skpds as $skpd) {
-				$data_skpd[] = [
-					'id_user'=>$id,
-					'id_skpd'=>$skpd
-				];
-			}
-			$this->db->insert_batch('user_skpd', $data_skpd);
 			$error = $this->db->error();
 			if(!empty($error['message'])){
 				$message = $error['message'];
@@ -206,12 +168,6 @@ class User extends MY_Controller {
 				$data_role[] = $row->id_role;
 			}
 			$user_view['data_role'] = $data_role;
-			$data_skpds = $this->db->where('id_user', $id)->get('user_skpd')->result();
-			$data_skpd = [];
-			foreach ($data_skpds as $row) {
-				$data_skpd[] = $row->id_skpd;
-			}
-			$user_view['data_skpd'] = $data_skpd;
 			$user_view['action'] = base_url('user/edit/'.$id).get_query_string();
 			$data['content'] = $this->load->view('contents/form_user_view',$user_view,true);
 
@@ -221,7 +177,7 @@ class User extends MY_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'error', 'title'=>'Something wrong', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'error', 'title'=>'Terjadi Kesalahan !', 'message'=>strip_tags(validation_errors())));
 			}
 
 		}else{
@@ -231,39 +187,27 @@ class User extends MY_Controller {
 
 			$roles = $this->input->post('role');
 			$data_role = [];
+			if($roles){
 			foreach ($roles as $role) {
 				$data_role[] = [
 					'id_user'=>$id,
 					'id_role'=>$role
 				];
 			}
+			}
 			$this->db->delete('role_user', ['id_user'=>$id]);
 			$error = $this->db->error();
 			if(!empty($error['message'])){
 				$message = $error['message'];
 			}
-
+			if($data_role){
 			$this->db->insert_batch('role_user', $data_role);
+			}
 			$error = $this->db->error();
 			if(!empty($error['message'])){
 				$message = $error['message'];
 			}
 
-			$skpds = $this->input->post('skpd');
-			$data_skpd = [];
-			foreach ($skpds as $skpd) {
-				$data_skpd[] = [
-					'id_user'=>$id,
-					'id_skpd'=>$skpd
-				];
-			}
-			$this->db->delete('user_skpd', ['id_user'=>$id]);
-			$error = $this->db->error();
-			if(!empty($error['message'])){
-				$message = $error['message'];
-			}
-
-			$this->db->insert_batch('user_skpd', $data_skpd);
 			$error = $this->db->error();
 			if(!empty($error['message'])){
 				$message = $error['message'];
@@ -310,7 +254,7 @@ class User extends MY_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'warning', 'title'=>'Something wrong', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan !', 'message'=>strip_tags(validation_errors())));
 			}
 
 		}else{

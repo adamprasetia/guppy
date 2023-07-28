@@ -13,6 +13,7 @@ class MY_Controller extends CI_Controller
         }else{
             $this->session_login = $this->session->userdata('session_login');
             $this->session_store = $this->session->userdata('session_store');
+            $this->session_module = $this->session->userdata('session_module');
         }
 
         // validation owner
