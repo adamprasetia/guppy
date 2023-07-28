@@ -25,5 +25,10 @@ class MY_Controller extends CI_Controller
                 redirect($table);
             }
         }
+
+        // validation role
+        if(in_array($this->uri->segment(1),['user','role','module','store']) && !in_array('super-admin', $this->session_module)){
+            redirect();
+        }
     }
 }
