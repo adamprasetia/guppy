@@ -42,10 +42,13 @@ class Login extends CI_Controller {
 			return false;
 		}
 
-		$userdata = $this->db->select('id,fullname,password,expired_at')->where('email', $email)->or_where('phone', $email)->get('user')->row_array();
+		$userdata = $this->db->select('id,fullname,password,expired_at,store_id')->where('email', $email)->or_where('phone', $email)->get('user')->row_array();
 		if (!empty($userdata) && password_verify($password, $userdata['password'])) {
 			// get store
-			$store_id = $this->db->where('user_id', $userdata['id'])->get('user_store')->row()->store_id;
+			$store_id = $userdata['store_id'];
+			if(empty($store_id)){
+				$store_id = $this->db->where('user_id', $userdata['id'])->get('user_store')->row()->store_id;
+			}
 			$this->session->set_userdata('session_store', $store_id);
 			$this->session->set_userdata('session_login', $userdata);
 			// get role
