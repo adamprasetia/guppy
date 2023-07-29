@@ -8,16 +8,15 @@
                 </div>
             </div>
             <div class="box">
+                <div class="box-body">                    
+                    <label for="">Lupa kode produk ?</label>
+                    <button type="button" id="btn-item-add" class="btn btn-primary btn-sm">Cari Produk</button>
+                </div>
                 <div id="form-detail" class="box-body">
                     <input type="hidden" id="detail-index" name="">
                     <div class="form-group">
-                        <label for="">Masukan Kode Produk Lalu Tekan ENTER</label>
-                        <div class="input-group">
-                            <input id="input-kode" type="text" class="form-control" placeholder="">
-                            <span class="input-group-btn">
-                                <button type="button" id="btn-item-add" class="btn btn-success">Cari Produk</button>
-                            </span>
-                        </div>
+                        <label for="">Masukan Kode Produk Lalu Tekan {ENTER}</label>
+                        <input id="input-kode" type="text" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="box-body">
