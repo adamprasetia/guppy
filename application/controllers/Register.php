@@ -10,11 +10,14 @@ class Register extends CI_Controller {
    	private function _set_rules()
 	{
 		$this->form_validation->set_rules('fullname','Fullname','trim|required');
-		$this->form_validation->set_rules('email','Email','trim|required');
+		$this->form_validation->set_rules('email','Email','trim|required|is_unique[user.email]');
 		$this->form_validation->set_rules('phone','Phone','trim|required');
 		$this->form_validation->set_rules('password','Password','trim|required');
 		$this->form_validation->set_rules('password2','Retype Password','trim|required|matches[password]');
 		$this->form_validation->set_rules('store','Store','trim|required');
+
+		$this->form_validation->set_message('required', '{field} harus diisi');
+		$this->form_validation->set_message('is_unique', '{field} sudah terdaftar sebelumnya');
 	}
 
 
