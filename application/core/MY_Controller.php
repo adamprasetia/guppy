@@ -30,5 +30,10 @@ class MY_Controller extends CI_Controller
         if(in_array($this->uri->segment(1),['user','role','module','store']) && !in_array('super-admin', $this->session_module)){
             redirect();
         }
+
+        // check expired
+        if($this->session_login['expired_at'] < date('Y-m-d') && $this->uri->segment(1) != 'expired' && !in_array('super-admin', $this->session_module)){
+            redirect('expired');
+        }
     }
 }

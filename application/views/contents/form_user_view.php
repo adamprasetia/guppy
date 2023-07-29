@@ -41,6 +41,12 @@
                     <div class="checkbox"><label><input type="checkbox" <?php echo (!empty($data_role) && in_array($role->id, $data_role)?'checked':'')?> name="role[]" value="<?php echo $role->id ?>"> <?php echo $role->name ?></label></div>
                 <?php } ?>
             </div>
+            <div class="form-group">
+                <label>Expired Date</label>
+                <input type="date" id="expired_at" name="expired_at" class="form-control"
+                    value="<?php echo isset($data->expired_at)?htmlentities($data->expired_at):'' ?>">
+            </div>
+
         </div>
 
         <div class="box-footer">

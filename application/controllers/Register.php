@@ -41,7 +41,8 @@ class Register extends CI_Controller {
 				'fullname' => $fullname,
 				'email' => $email,
 				'phone' => $phone,
-				'created_at' => date('Y-m-d H:i:s')
+				'created_at' => date('Y-m-d H:i:s'),
+				'expired_at' => date('Y-m-d', strtotime("+1 months"))
 			);
 			if(!empty($password)){
 				$data['password'] = password_hash($password, PASSWORD_BCRYPT);

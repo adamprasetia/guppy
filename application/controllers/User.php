@@ -71,11 +71,13 @@ class User extends MY_Controller {
 		$email 			= $this->input->post('email');
 		$phone 			= $this->input->post('phone');
 		$password 		= $this->input->post('password');
+		$expired_at 		= $this->input->post('expired_at');
 
 		$data = array(
 			'fullname' => $fullname,
 			'email' => $email,
 			'phone' => $phone,
+			'expired_at' => $expired_at,
 		);
 		if(!empty($password)){
 			$data['password'] = password_hash($password, PASSWORD_BCRYPT);
