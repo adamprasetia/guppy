@@ -11,6 +11,8 @@ class Store extends MY_Controller {
    	}
 	private function _filter()
 	{
+		$this->db->join('user_store','store.id=user_store.store_id', 'left');
+        $this->db->where('user_id', $this->session_login['id']);
 		$search = $this->input->get('search');
 		if ($search) {
 			$this->db->like('name', $search);
@@ -80,7 +82,14 @@ class Store extends MY_Controller {
 
 		}else{
 			$data = $this->_set_data();
+			$this->db->trans_start();
 			$this->db->insert($this->table, $data);
+			$store_id = $this->db->insert_id();
+			$this->db->insert('user_store', [
+				'store_id'=>$store_id,
+				'user_id'=>$this->session_login['id']
+			]);
+			$this->db->trans_complete();
 			$error = $this->db->error();
 			if(empty($error['message'])){
 				$response = array('id'=>$this->db->insert_id(), 'action'=>'insert', 'message'=>'Data berhasil disimpan');

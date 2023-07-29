@@ -97,6 +97,7 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">MENU UTAMA</li>
                     <li class="<?php echo $this->uri->segment(1)==''?'active':''?>"><a href="<?php echo base_url() ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Dashboard</span></a></li>
+                    <li class="<?php echo $this->uri->segment(1)=='store'?'active':''?>"><a href="<?php echo base_url('store') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Toko</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='trans'?'active':''?>"><a href="<?php echo base_url('trans') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Keuangan</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='item'?'active':''?>"><a href="<?php echo base_url('item') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Produk</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='stock'?'active':''?>"><a href="<?php echo base_url('stock') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Stok</span></a></li>
@@ -109,7 +110,6 @@
                     <li class="<?php echo $this->uri->segment(1)=='user'?'active':''?>"><a href="<?php echo base_url('user') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>User</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='role'?'active':''?>"><a href="<?php echo base_url('role') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Role</span></a></li>
                     <li class="<?php echo $this->uri->segment(1)=='module'?'active':''?>"><a href="<?php echo base_url('module') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Module</span></a></li>
-                    <li class="<?php echo $this->uri->segment(1)=='store'?'active':''?>"><a href="<?php echo base_url('store') ?>"><i class="fa fa-circle-o text-aqua"></i> <span>Store</span></a></li>
                     <?php endif ?>
                 </ul>
                 <!-- /.sidebar-menu -->

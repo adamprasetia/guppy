@@ -9,8 +9,16 @@ Dashboard
 </ol>
 </section>
 <section class="content">
-
-<div class="row">
+    
+    <div class="form-group">
+        <label for="">Toko yang dipilih</label>
+        <select name="session_store" id="session_store" class="form-control">
+            <?php foreach ($store as $key => $value) { ?>
+                <option value="<?php echo $value->id ?>" <?php echo $this->session_store==$value->id ? 'selected':'' ?>><?php echo $value->name ?></option>
+            <?php } ?>
+        </select>
+    </div>
+    <div class="row">
 <div class="col-lg-3 col-xs-6">
 
 <div class="small-box bg-aqua">

@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller
         }
 
         // validation owner
-        if(in_array($this->uri->segment(1),['item','sell','trans','buy']) && $this->uri->segment(2)=='edit'){
+        if(in_array($this->uri->segment(1),['item','sell','trans','buy']) && (in_array($this->uri->segment(2), ['edit','delete']))){
             $table = $this->uri->segment(1);
             $id = $this->uri->segment(3);
             $data = $this->db->where('id', $id)->get($table)->row();
@@ -26,8 +26,17 @@ class MY_Controller extends CI_Controller
             }
         }
 
+        // validation owner store
+        if(in_array($this->uri->segment(1),['store']) && (in_array($this->uri->segment(2), ['edit','delete']))){
+            $id = $this->uri->segment(3);
+            $data = $this->db->where('store_id', $id)->get('user_store')->row();
+            if($data->user_id != $this->session_login['id']){
+                redirect('store');
+            }
+        }
+
         // validation role
-        if(in_array($this->uri->segment(1),['user','role','module','store']) && !in_array('super-admin', $this->session_module)){
+        if(in_array($this->uri->segment(1),['user','role','module']) && !in_array('super-admin', $this->session_module)){
             redirect();
         }
 
