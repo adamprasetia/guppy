@@ -23,7 +23,13 @@ class Dashboard extends MY_Controller {
 
 	public function switch_store($store_id)
 	{
-		$this->session->set_userdata('session_store', $store_id);
+		// validasi
+		$this->db->where('store_id', $store_id);
+		$this->db->where('user_id', $this->session_login['id']);
+		$valid = $this->db->count_all_results('user_store');
+		if(!empty($valid)){
+			$this->session->set_userdata('session_store', $store_id);
+		}
 		redirect();
 	}
 
