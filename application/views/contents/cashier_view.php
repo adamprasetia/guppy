@@ -91,7 +91,7 @@
     </div>
     <div class="box">
         <div class="box-body">
-            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('cashier/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_data" data-idle="Checkout" data-process="Menyimpan...">Checkout</button>
+            <button type="button" class="btn_action btn btn-primary" data-redirect="<?php echo base_url('cashier/index').get_query_string() ?>" data-action="<?php echo $action ?>" data-form="#form_print" data-idle="Checkout" data-process="Menyimpan...">Checkout</button>
             <button type="button" class="btn_print btn btn-default">Cetak</button>
         </div>
     </div>
