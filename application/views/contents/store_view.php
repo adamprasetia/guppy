@@ -33,7 +33,6 @@
                         <td><a href="<?php echo base_url('store/edit/'.$value->id); ?>"><?php echo $value->name; ?></a></td>
                         <td>
                             <a class="btn btn-default" href="<?php echo base_url('store/edit/'.$value->id); ?>"><i class="fa fa-edit"></i></a>
-                            <button class="btn btn-default" type="button" name="button" data-url="<?php echo base_url('store/delete/'.$value->id); ?>" onclick="return deleteData(this)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                       <?php $no++; } ?>
