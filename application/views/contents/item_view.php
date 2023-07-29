@@ -6,16 +6,21 @@
         </div>
     </div>
     <?php endif ?>
-    <div class="box-header with-border">
+    <div class="box-header with-border hidden-xs">
         <div class="row">
             <div class="col-sm-6 col-md-8 col-lg-9">
-                <a href="<?php echo base_url('item/add').get_query_string() ?>" class="btn btn-default"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="<?php echo base_url('item/add').get_query_string() ?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
                 <a href="<?php echo now_url() ?>" class="btn btn-default"><i class="fa fa-refresh"></i> Refresh</a>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <input id="input_search" name="search" type="text" class="form-control" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
             </div>           
         </div>           
+    </div>           
+    <div class="box-header with-border visible-xs">
+        <a href="<?php echo base_url('item/add').get_query_string() ?>" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Tambah</a>
+        <a href="<?php echo now_url() ?>" class="btn btn-default btn-block"><i class="fa fa-refresh"></i> Refresh</a>
+        <input id="input_search" name="search" type="text" class="form-control" placeholder="Search..." data-url="<?php echo current_url() ?>" data-query-string="<?php echo get_query_string(array('search','page')) ?>" value="<?php echo $this->input->get('search') ?>">
     </div>           
     <div class="box-body no-padding">
         <div class="table-responsive no-margin">
@@ -61,7 +66,10 @@
     </div>
     <div class="box-footer">
         <label><?php echo isset($total)?$total:'' ?></label>
-        <div class="pull-right">
+        <div class="visible-xs">
+            <?php echo isset($paging)?$paging:'' ?>
+        </div>
+        <div class="pull-right hidden-xs">
             <?php echo isset($paging)?$paging:'' ?>
         </div>
     </div>

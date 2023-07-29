@@ -65,8 +65,8 @@ class Trans extends MY_Controller {
 		$data = array(
 			'type' => $type,
 			'remark' => $remark,
-			'date' => format_ymd($date),
-			'value' => format_uang($value),
+			'date' => $date,
+			'value' => $value,
             'store_id' => $this->session_store,
 		);
 
@@ -128,7 +128,6 @@ class Trans extends MY_Controller {
 		if ($this->form_validation->run()===FALSE) {
 			$this->db->where('trans.id', $id);
 			$content_view['data'] = $this->db->get($this->table)->row();
-            $content_view['data']->value = number_format($content_view['data']->value);
 			$content_view['action'] = base_url('trans/edit/'.$id).get_query_string();
 			$data['script'] = $this->load->view('script/trans_script', '', true);
 			$data['content'] = $this->load->view('contents/form_trans_view',$content_view,true);

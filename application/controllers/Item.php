@@ -54,8 +54,8 @@ class Item extends MY_Controller {
 		$data = array(
 			'name' => $name,
 			'sku' => $sku,
-			'bp' => format_uang($bp),
-			'sp' => format_uang($sp),
+			'bp' => $bp,
+			'sp' => $sp,
             'store_id' => $this->session_store,
 		);
 
@@ -113,8 +113,6 @@ class Item extends MY_Controller {
 		if ($this->form_validation->run()===FALSE) {
 			$this->db->where('id', $id);
 			$content_view['data'] = $this->db->get($this->table)->row();
-            $content_view['data']->bp = number_format($content_view['data']->bp);
-            $content_view['data']->sp = number_format($content_view['data']->sp);
 			$content_view['action'] = base_url('item/edit/'.$id).get_query_string();
 			$data['content'] = $this->load->view('contents/form_item_view',$content_view,true);
 

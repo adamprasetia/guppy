@@ -15,7 +15,7 @@ function paging_tmp()
         'query_string_segment' => 'page',
         'full_tag_open' => '<div class="btn-group">',
         'full_tag_close' => '</div>',
-        'cur_tag_open' => '<button type="button" class="btn btn-primary btn-sm">',
+        'cur_tag_open' => '<button type="button" class="btn btn-primary">',
         'cur_tag_close' => '</button>',
     );
     return $data;
@@ -33,7 +33,7 @@ function gen_paging($total = 0, $limit = 10)
 
     $ci->pagination->initialize($config);
     $data = $ci->pagination->create_links();
-    return str_replace('<a href', '<a class="btn btn-default btn-sm" href', $data);
+    return str_replace('<a href', '<a class="btn btn-default" href', $data);
 }
 
 function get_query_string($remove = '')
