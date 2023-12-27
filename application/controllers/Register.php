@@ -53,6 +53,7 @@ class Register extends CI_Controller {
 	
 			$this->db->trans_start();
 			$this->db->insert('user', $data);
+			$error = $this->db->error();	
 			$user_id = $this->db->insert_id();
 
 			$this->db->insert('store', [
@@ -60,12 +61,12 @@ class Register extends CI_Controller {
 				'created_by'=>$user_id,
 				'created_at'=>date('Y-m-d H:i:s'),
 			]);
+			$error = $this->db->error();	
 			$store_id = $this->db->insert_id();
 
 			$this->db->insert('user_store', ['user_id'=>$user_id, 'store_id'=>$store_id]);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === FALSE){
-				$error = $this->db->error();	
 				$response = array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan!', 'message'=>$error['message']);
 			}else{
 				$response = array('action'=>'register','message'=>'Registration success!');
