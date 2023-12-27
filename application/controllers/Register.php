@@ -65,7 +65,8 @@ class Register extends CI_Controller {
 			$this->db->insert('user_store', ['user_id'=>$user_id, 'store_id'=>$store_id]);
 			$this->db->trans_complete();
 			if($this->db->trans_status() === FALSE){
-				$response = array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan!', 'message'=>$message);
+				$error = $this->db->error();	
+				$response = array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan!', 'message'=>$error['message']);
 			}else{
 				$response = array('action'=>'register','message'=>'Registration success!');
 			}
