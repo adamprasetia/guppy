@@ -1,4 +1,5 @@
 vendor
 application/controllers/Test.php
-application/config/database.php
+application/config/development
+application/config/production
 simad.zip
