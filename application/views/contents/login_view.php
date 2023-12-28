@@ -24,7 +24,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Silakan masukan email dan password</p>
 
     <form id="form_data" method="post">
 
@@ -49,12 +49,12 @@
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4 pull-right" >
-          <button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Sign In" data-process="Login..." data-form="#form_data" data-action="<?php echo base_url('login'); ?>" data-redirect="<?php echo base_url(); ?>">Sign In</button>
+          <button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Sign In" data-process="Login..." data-form="#form_data" data-action="<?php echo base_url('login'); ?>" data-redirect="<?php echo base_url(); ?>">Masuk</button>
         </div>
         <!-- /.col -->
       </div>
     </form>
-    <a href="register" class="text-center">Register a new membership</a>
+    <a href="register" class="text-center">Pendaftaran akun baru</a>
   </div>
   <!-- /.login-box-body -->
 </div>

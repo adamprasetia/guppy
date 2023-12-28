@@ -24,7 +24,7 @@ class Login extends CI_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'warning', 'title'=>'Something wrong', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan!', 'message'=>strip_tags(validation_errors())));
 			}
 
 
@@ -66,7 +66,7 @@ class Login extends CI_Controller {
 			$this->session->set_userdata('session_module', $module);
 			return true;
 		} else {
-			$this->form_validation->set_message('check_auth','Login fail');
+			$this->form_validation->set_message('check_auth','Login gagal, pastikan email dan password benar');
 			return false;
 		}
 	}

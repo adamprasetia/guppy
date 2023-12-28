@@ -23,18 +23,18 @@
 <a href="register"><b>Guppy</b>Accounting</a>
 </div>
 <div class="register-box-body">
-<p class="login-box-msg">Register a new membership</p>
-<form id="form_data" method="post">
+<p class="login-box-msg">Pendaftaran akun baru</p>
+<form autocomplete="off" id="form_data" method="post">
 <div class="form-group has-feedback">
-<input name="fullname" type="text" class="form-control" placeholder="Full name">
+<input name="fullname" type="text" class="form-control" placeholder="Nama Lengkap">
 <span class="fa fa-user form-control-feedback"></span>
 </div>
 <div class="form-group has-feedback">
-<input name="email" type="email" class="form-control" placeholder="Email">
+<input name="email" type="text" class="form-control" placeholder="Email" autocomplete="nope">
 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 </div>
 <div class="form-group has-feedback">
-<input name="phone" type="text" class="form-control" placeholder="Phone">
+<input name="phone" type="text" class="form-control" placeholder="Telepon">
 <span class="fa fa-phone form-control-feedback"></span>
 </div>
 <div class="form-group has-feedback">
@@ -42,12 +42,12 @@
 <span class="fa fa-lock form-control-feedback"></span>
 </div>
 <div class="form-group has-feedback">
-<input name="password2" type="password" class="form-control" placeholder="Retype password">
+<input name="password2" type="password" class="form-control" placeholder="Ulangi Password">
 <span class="fa fa-lock form-control-feedback"></span>
 </div>
 <hr>
 <div class="form-group has-feedback">
-<input name="store" type="text" class="form-control" placeholder="Store">
+<input name="store" type="text" class="form-control" placeholder="Nama Toko">
 <span class="fa fa-shopping-bag form-control-feedback"></span>
 </div>
 
@@ -55,12 +55,12 @@
 <div class="col-xs-8">
 </div>
 <div class="col-xs-4">
-<button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Register" data-process="Registration..." data-form="#form_data" data-action="<?php echo base_url('register'); ?>" data-redirect="<?php echo base_url(); ?>">Register</button>
+<button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Daftar" data-process="Pendaftaran..." data-form="#form_data" data-action="<?php echo base_url('register'); ?>" data-redirect="<?php echo base_url(); ?>">Daftar</button>
 </div>
 
 </div>
 </form>
-<a href="login" class="text-center">I already have a membership</a>
+<a href="login" class="text-center">Sudah punya akun</a>
 </div>
 
 </div>

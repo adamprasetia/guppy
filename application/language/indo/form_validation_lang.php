@@ -23,3 +23,4 @@ $lang['is_natural_no_zero']	= "Bagian %s harus berisi angka lebih besar dari 0."
 $lang['decimal']			= "Bagian %s harus berisi angka desimal.";
 $lang['less_than']			= "Bagian %s harus kurang dari %s.";
 $lang['greater_than']		= "Bagian %s harus lebih dari %s.";
+$lang['greater_than']		= "Bagian %s harus lebih dari %s.";

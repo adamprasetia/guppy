@@ -116,7 +116,7 @@ class Store extends MY_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'error', 'title'=>'Something wrong', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'error', 'title'=>'Terjadi Kesalahan!', 'message'=>strip_tags(validation_errors())));
 			}
 
 		}else{

@@ -5,19 +5,18 @@ class Register extends CI_Controller {
 	function __construct()
    	{
     	parent::__construct();
+		$this->config->set_item('language', 'indo'); 
+
    	}
 
    	private function _set_rules()
 	{
-		$this->form_validation->set_rules('fullname','Fullname','trim|required');
+		$this->form_validation->set_rules('fullname','Nama Lengkap','trim|required');
 		$this->form_validation->set_rules('email','Email','trim|required|is_unique[user.email]');
-		$this->form_validation->set_rules('phone','Phone','trim|required|is_unique[user.phone]');
+		$this->form_validation->set_rules('phone','Telepon','trim|required|is_unique[user.phone]');
 		$this->form_validation->set_rules('password','Password','trim|required');
-		$this->form_validation->set_rules('password2','Retype Password','trim|required|matches[password]');
-		$this->form_validation->set_rules('store','Store','trim|required');
-
-		$this->form_validation->set_message('required', '{field} harus diisi');
-		$this->form_validation->set_message('is_unique', '{field} sudah terdaftar sebelumnya');
+		$this->form_validation->set_rules('password2','Ulangi Password','trim|required|matches[password]');
+		$this->form_validation->set_rules('store','Nama Toko','trim|required');
 	}
 
 
@@ -31,7 +30,7 @@ class Register extends CI_Controller {
 			}
 			else
 			{
-				echo json_encode(array('tipe'=>'warning', 'title'=>'Something wrong!', 'message'=>strip_tags(validation_errors())));
+				echo json_encode(array('tipe'=>'warning', 'title'=>'Terjadi Kesalahan!', 'message'=>strip_tags(validation_errors())));
 			}
 		}else{
 			$fullname 		= $this->input->post('fullname');
