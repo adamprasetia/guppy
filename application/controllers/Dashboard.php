@@ -34,7 +34,7 @@ class Dashboard extends MY_Controller {
 			$this->db->where('id', $this->session_login['id']);
 			$this->db->update('user', ['store_id'=>$store_id]);
 		}
-		redirect();
+		redirect('dashboard');
 	}
 
 }

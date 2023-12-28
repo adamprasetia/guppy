@@ -29,7 +29,7 @@
                 data-action="<?php echo base_url('user/change_password') ?>"
                 data-redirect="<?php echo base_url('user/change_password') ?>"><i class='fa fa-save'></i> Ganti Sekarang</button>
             <button type="button" name="button" class="btn btn-default btn_action"
-                data-redirect="<?php echo base_url() ?>"><i class='fa fa-close'></i> Kembali</button>
+                data-redirect="<?php echo base_url('dashboard') ?>"><i class='fa fa-close'></i> Kembali</button>
         </div>
     </div>
 </form>

@@ -49,7 +49,7 @@
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4 pull-right" >
-          <button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Sign In" data-process="Login..." data-form="#form_data" data-action="<?php echo base_url('login'); ?>" data-redirect="<?php echo base_url(); ?>">Masuk</button>
+          <button type="button" class="btn btn-primary btn-block btn-flat btn_action" data-idle="Sign In" data-process="Login..." data-form="#form_data" data-action="<?php echo base_url('login'); ?>" data-redirect="<?php echo base_url('dashboard'); ?>">Masuk</button>
         </div>
         <!-- /.col -->
       </div>
