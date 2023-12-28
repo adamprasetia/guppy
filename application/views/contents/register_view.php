@@ -20,7 +20,7 @@
 <body class="hold-transition login-page">
 <div class="register-box">
 <div class="register-logo">
-<a href="register"><b>Guppy</b>Accounting</a>
+<a href="register"><b>Guppy</b></a>
 </div>
 <div class="register-box-body">
 <p class="login-box-msg">Pendaftaran akun baru</p>
