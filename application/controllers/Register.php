@@ -17,6 +17,7 @@ class Register extends CI_Controller {
 		$this->form_validation->set_rules('password','Password','trim|required');
 		$this->form_validation->set_rules('password2','Ulangi Password','trim|required|matches[password]');
 		$this->form_validation->set_rules('store','Nama Toko','trim|required');
+		$this->form_validation->set_message('is_unique','{field} sudah terdaftar sebelumnya, silakan gunakan {field} yang lain');
 	}
 
 
