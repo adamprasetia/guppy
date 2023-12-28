@@ -157,6 +157,7 @@ class Item extends MY_Controller {
 	public function find()
 	{
 		$search = $this->input->get('search');
+		$this->db->where('store_id', $this->session_store);
 		$this->db->where('sku', $search);
 		$data = $this->db->get('item')->row();
 		echo json_encode($data, JSON_NUMERIC_CHECK);
